@@ -3,7 +3,7 @@
 winvenv/
 file/
 file_tmp/
-survey_ces_strong_test_genai/
+survey_ces_strong_test/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

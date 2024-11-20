@@ -28,8 +28,7 @@ def main():
         dt_start = add_1_second(last_dttm_download)
         feedbacks = get_medallia_feedbakcs_rule_id(username=username_medallia, password=password_medallia, dt_start=dt_start, dt_end=today_now_str, rule_id=rule_id_medallia)
         result = upload_table_on_bigquery(project_id, dataset_name, table_name_feedbacks, feedbacks, "append")
-        if "Schema does not match" in result:
-            print("Schema does not match")
+        if "Schema does not match" or "An error occurred: Could not convert DataFrame to Parquet" in result:
             read_and_upload_table_on_bigquery(project_id, dataset_name, table_name_feedbacks, feedbacks, "replace")
 
     #start flow
