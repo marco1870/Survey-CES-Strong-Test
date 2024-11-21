@@ -116,7 +116,8 @@ def read_and_upload_table_on_bigquery(project_id: str, dateset_name: str, table_
     df_bigquery = pd_gbq.read_gbq(query_or_table=table_id)
     df_bigquery["TIMESTAMP_HD"] = df_bigquery["TIMESTAMP_HD"].apply(remove_timezone)
 
-    df_final = pd.concat([df_bigquery,df_update])
+    df_final_concat = pd.concat([df_bigquery,df_update])
+    df_final = df_final_concat.drop_duplicates(subset="FEEDBACKID_HD", keep="first")
 
     upload_status = None
 
