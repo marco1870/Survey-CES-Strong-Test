@@ -97,7 +97,7 @@ def handle_list() -> dict:
     df_lista_10.insert(1, "run", "run_10")
     df_lista_11.insert(1, "run", "run_11")
     df_lista_11_1.insert(1, "run", "run_11")
-    df_lista_12.insert(1, "run", "run_11")
+    df_lista_12.insert(1, "run", "run_12")
     df_lista_CTRL.insert(1, "group", "CTRL APP")
     df_lista_Other.insert(1, "group", "OTHER APP")
     df_lista_Strong_Test.insert(1, "group", "STRONG TEST")
