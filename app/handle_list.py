@@ -33,6 +33,8 @@ def handle_list() -> dict:
     df_lista_11 = pd.read_csv("file/APP_ListaPrenotatore11.csv", dtype=str, index_col=False)
     df_lista_11_1 = pd.read_csv("file/APP_ListaPrenotatore11b.csv", dtype=str, index_col=False)
     df_lista_12 = pd.read_csv("file/APP_ListaPrenotatore12.csv", dtype=str, index_col=False)
+    df_lista_13 = pd.read_csv("file/APP_ListaPrenotatore13a.csv", dtype=str, index_col=False)
+    df_lista_13_1 = pd.read_csv("file/APP_ListaPrenotatore13b.csv", dtype=str, index_col=False)
     df_lista_CTRL = pd.read_csv("file/APP_ListaPrenotatore_CTRL_APP.csv", dtype=str, index_col=False)
     df_lista_Other = pd.read_csv("file/APP_ListaPrenotatore_Other_APP.csv", dtype=str, index_col=False, usecols=["msisdn"])
     df_lista_Strong_Test = pd.read_csv("file/APP_ListaPrenotatore_Strong_Test.csv", dtype=str, index_col=False)
@@ -52,6 +54,8 @@ def handle_list() -> dict:
     df_lista_11["sha256"]=df_lista_11["msisdn"].apply(hashing_sha256)
     df_lista_11_1["sha256"]=df_lista_11_1["msisdn"].apply(hashing_sha256)
     df_lista_12["sha256"]=df_lista_12["msisdn"].apply(hashing_sha256)
+    df_lista_13["sha256"]=df_lista_13["msisdn"].apply(hashing_sha256)
+    df_lista_13_1["sha256"]=df_lista_13_1["msisdn"].apply(hashing_sha256)
     df_lista_CTRL["sha256"]=df_lista_CTRL["msisdn"].apply(hashing_sha256)
     df_lista_Other["sha256"]=df_lista_Other["msisdn"].apply(hashing_sha256)
     df_lista_Strong_Test["sha256"]=df_lista_Strong_Test["msisdn"].apply(hashing_sha256)
@@ -71,10 +75,12 @@ def handle_list() -> dict:
     df_lista_11 = df_lista_11.drop(columns=["msisdn"])
     df_lista_11_1 = df_lista_11_1.drop(columns=["msisdn"])
     df_lista_12 = df_lista_12.drop(columns=["msisdn"])
+    df_lista_13 = df_lista_13.drop(columns=["msisdn"])
+    df_lista_13_1 = df_lista_13_1.drop(columns=["msisdn"])
     df_lista_CTRL = df_lista_CTRL.drop(columns=["msisdn"])
     df_lista_Other = df_lista_Other.drop(columns=["msisdn"])
     df_lista_Strong_Test = df_lista_Strong_Test.drop(columns=["msisdn"])
-    df_lista_Strong_Test_New = df_lista_Strong_Test_New.drop(columns=["msisdn"])
+    df_lista_Strong_Test_New = df_lista_Strong_Test_New.drop(columns=["msisdn","run"])
 
     df_CTRL_Other = pd.merge(df_lista_CTRL, df_lista_Other, how="inner", on="sha256")
     df_CTRL_Strong = pd.merge(df_lista_CTRL, df_lista_Strong_Test, how="inner", on="sha256")
@@ -98,6 +104,8 @@ def handle_list() -> dict:
     df_lista_11.insert(1, "run", "run_11")
     df_lista_11_1.insert(1, "run", "run_11")
     df_lista_12.insert(1, "run", "run_12")
+    df_lista_13.insert(1, "run", "run_13")
+    df_lista_13_1.insert(1, "run", "run_13")
     df_lista_CTRL.insert(1, "group", "CTRL APP")
     df_lista_Other.insert(1, "group", "OTHER APP")
     df_lista_Strong_Test.insert(1, "group", "STRONG TEST")
@@ -116,7 +124,9 @@ def handle_list() -> dict:
                         df_lista_10,
                         df_lista_11,
                         df_lista_11_1,
-                        df_lista_12])
+                        df_lista_12,
+                        df_lista_13,
+                        df_lista_13_1])
 
     print("Tutte le run pre deduplica:",df_all_run.info())
     df_all_run = df_all_run.drop_duplicates(subset="sha256", keep="last")
