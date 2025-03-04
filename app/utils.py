@@ -44,7 +44,7 @@ def convert_unix_millis_to_local(ts_millis, result_type: Literal["string","integ
 def print_progress(current: int, total: int) -> None:
     if total != 0:
         j = (current + 1) / total
-        print("[%-20s] %d%% %d/%d" % ('='*int(20*j), 100*j, current, total), end='\n')
+        print("[%-20s] %d%% %d/%d" % ('='*int(20*j), 100*j, current, total), end='\r', flush=True)
     return None
 
 def today_now() -> str:
